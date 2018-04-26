@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+	
+<head>
+	<title>SysEstoque</title>
+	
+	<script type="text/javascript">
+	
+		$(document).ready(function() {
+			
+			console.log("BORA");
+			
+		});
+	
+	
+	</script>
+	
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1>
+						Baixa de Estoque
+					</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		
+		<!-- PESQUISA -->
+		<form method="get" th:action="@{/pesquisar}" class="form-vertical  js-form-loading">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="input-produto-preco">Código:</label>
+						<label for="input-produto-preco" style="margin-left: 140px">Nome:</label>
+						<div class="form-inline">
+							<input name="codigo" type="text" class="form-control  aw-form-control-inline-sm" placeholder="Código"/>
+							<input name="nome" type="text" class="form-control  aw-form-control-inline-sm" 
+							       placeholder="Nome" style="margin-left: 10px"/>
+							<button class="btn  btn-primary" type="submit" style="margin-left: 10px">Pesquisar</button>							       
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</form>
+		
+		<div class="table-responsive">
+			<table id="tabela-user" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+				<thead class="aw-table-header-solid">
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Valor Unitário</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="count" th:each="produto : ${produtos}">
+						<td th:text="${produto.id}"></td>
+						<td th:text="${produto.nome}"></td>
+						<td>????</td>
+						<td class="table-pesq-produto-col-acoes">
+							<div class="btn-group">
+								<a th:href="@{/produto/baixa/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
+									<i class="fa  fa-fw  fa-check-circle"></i>
+								</a>
+							</div>
+						</td>
+					</tr>
+					<tr id="not-count" th:if="${produtos.empty}">
+						<td colspan="6">Nenhum produto encontrado.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+			
+		<div class="row">
+			<div class="col-xs-12  col-md-8  aw-text-xs-center  aw-text-md-left">
+				<nav>
+					<ul class="pagination  pagination-sm">
+						<li><a href="#"><i class="fa  fa-angle-double-left"></i></a></li>
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#"><i class="fa  fa-angle-double-right"></i></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		
+		<br/>
+		
+		<div class="row">
+			<div class="col-xs-10">
+				<h3>
+					Produtos para Baixa
+				</h3>
+			</div>
+		</div>
+		
+		<div class="table-responsive">
+			<table id="tabela-user" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+				<thead class="aw-table-header-solid">
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Valor Unitário</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="count" th:each="produto : ${produtosBaixa}">
+						<td th:text="${produto.id}"></td>
+						<td th:text="${produto.nome}"></td>
+						<td><input type="text" value="????"/></td>
+						<td class="table-pesq-produto-col-acoes">
+							<div class="btn-group">
+								<a th:href="@{/visualizar/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
+									<i class="fa  fa-fw  fa-close"></i>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="input-produto-preco">Valor Total:</label>
+					<div class="form-inline">
+						<input name="valorTotal" type="text" class="form-control  aw-form-control-inline-sm" 
+						       placeholder="Valor Total" readonly="readonly"/>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+</section>
+
+</body>
+</html>
