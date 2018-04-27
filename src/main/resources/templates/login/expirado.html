@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layout/LayoutSimples">
+
+<th:block layout:fragment="conteudo">
+	
+	<form th:action="@{/login}" method="POST">
+		<div class="aw-simple-panel">
+			<h3>Sistema</h3> <!-- <h1> -->
+			
+			<div class="aw-simple-panel__message  is-error">
+				<div class="alert alert-danger">
+  					<strong>O sistema expirou.</strong>
+				</div>
+			</div>
+			
+			<div class="aw-simple-panel__message">
+				Por favor, entre em contato com a Aplino Tech.
+			</div>			
+		</div>
+	</form>
+	
+</th:block>
+
+</html>

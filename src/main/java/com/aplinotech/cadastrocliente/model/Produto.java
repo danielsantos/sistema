@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Produto {
@@ -26,13 +27,19 @@ public class Produto {
 	private String descricao;
 	
 	@Column
-	private Long quantidadeTotal = 0L;
+	private Long quantidadeTotal = 0L; // TODO alterar nome, passar para qtdEmEstoque
 
 	@Column
 	private BigDecimal custoUnitario = BigDecimal.ZERO;
 	
+	@Column
+	private BigDecimal valorVendaUnitario = BigDecimal.ZERO;
+	
 	@Column(nullable = true, length = 1)
 	private String status;
+	
+	@Transient
+	private Integer qtdParaBaixa = 0;
 	
 
 	public Long getId() {
@@ -89,6 +96,22 @@ public class Produto {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public BigDecimal getValorVendaUnitario() {
+		return valorVendaUnitario;
+	}
+
+	public void setValorVendaUnitario(BigDecimal valorVendaUnitario) {
+		this.valorVendaUnitario = valorVendaUnitario;
+	}
+
+	public Integer getQtdParaBaixa() {
+		return qtdParaBaixa;
+	}
+
+	public void setQtdParaBaixa(Integer qtdParaBaixa) {
+		this.qtdParaBaixa = qtdParaBaixa;
 	}
 	
 }

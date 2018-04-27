@@ -7,10 +7,16 @@
 <th:block layout:fragment="conteudo">
 	<form th:action="@{/login}" method="POST">
 		<div class="aw-simple-panel">
-			<h1>Cadastro de Clientes</h1>
+			<h3>Sistema</h3> <!-- <h1> -->
 			
 			<div class="aw-simple-panel__message">
 				Por favor, faça o login.
+			</div>
+			
+			<div class="aw-simple-panel__message  is-error" th:if="${!#strings.isEmpty(msgError)}">
+				<div class="alert alert-danger">
+  					<strong><span th:text="${mensagem}"></span></strong>
+				</div>
 			</div>
 			
 			<div class="aw-simple-panel__message  is-error" th:if="${#bools.isTrue(param.error)}">

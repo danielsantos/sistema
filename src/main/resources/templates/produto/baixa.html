@@ -9,12 +9,11 @@
 	
 	<script type="text/javascript">
 	
-		$(document).ready(function() {
-			
-			console.log("BORA");
-			
-		});
-	
+		function teste(qtdParaBaixa) {
+			//alert(qtdParaBaixa.value);
+			var opa = document.getElementById("1");
+			alert(opa.value);
+		}
 	
 	</script>
 	
@@ -38,16 +37,21 @@
 	<div class="container-fluid">
 		
 		<!-- PESQUISA -->
-		<form method="get" th:action="@{/pesquisar}" class="form-vertical  js-form-loading">
+		<form th:action="@{/produto/pesquisar}" th:object="${dto}" class="form-vertical  js-form-loading" method="POST">
+		
+    		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+	    		<span th:text="${mensagem}"></span>
+	    		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    				<span aria-hidden="true">&times;</span>
+    			</button>
+    		</div>
+		
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label for="input-produto-preco">Código:</label>
-						<label for="input-produto-preco" style="margin-left: 140px">Nome:</label>
 						<div class="form-inline">
-							<input name="codigo" type="text" class="form-control  aw-form-control-inline-sm" placeholder="Código"/>
-							<input name="nome" type="text" class="form-control  aw-form-control-inline-sm" 
-							       placeholder="Nome" style="margin-left: 10px"/>
+							<input th:field="*{codigoProduto}" type="text" class="form-control  aw-form-control-inline-sm" placeholder="Código"/>
 							<button class="btn  btn-primary" type="submit" style="margin-left: 10px">Pesquisar</button>							       
 						</div>
 						
@@ -55,52 +59,19 @@
 				</div>
 			</div>
 		</form>
-		
-		<div class="table-responsive">
-			<table id="tabela-user" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
-				<thead class="aw-table-header-solid">
-					<tr>
-						<th>#</th>
-						<th>Nome</th>
-						<th>Valor Unitário</th>
-						<th>Ações</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr id="count" th:each="produto : ${produtos}">
-						<td th:text="${produto.id}"></td>
-						<td th:text="${produto.nome}"></td>
-						<td>????</td>
-						<td class="table-pesq-produto-col-acoes">
-							<div class="btn-group">
-								<a th:href="@{/produto/baixa/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
-									<i class="fa  fa-fw  fa-check-circle"></i>
-								</a>
-							</div>
-						</td>
-					</tr>
-					<tr id="not-count" th:if="${produtos.empty}">
-						<td colspan="6">Nenhum produto encontrado.</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
 			
-		<div class="row">
-			<div class="col-xs-12  col-md-8  aw-text-xs-center  aw-text-md-left">
-				<nav>
-					<ul class="pagination  pagination-sm">
-						<li><a href="#"><i class="fa  fa-angle-double-left"></i></a></li>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#"><i class="fa  fa-angle-double-right"></i></a></li>
-					</ul>
-				</nav>
+		<form th:action="@{/produto/baixa/add}" th:object="${produto}" class="form-vertical js-form-loading" method="POST">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="input-produto-preco">Produto:</label>
+						<div class="form-inline">
+							<input th:field="*{nome}" type="text" class="form-control  aw-form-control-inline-sm" readonly="readonly" />
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
+		</form>
 		
 		<br/>
 		
@@ -118,7 +89,8 @@
 					<tr>
 						<th>#</th>
 						<th>Nome</th>
-						<th>Valor Unitário</th>
+						<th>Quant. para Baixa</th>
+						<th>Valor Venda Unitário</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
@@ -126,7 +98,8 @@
 					<tr id="count" th:each="produto : ${produtosBaixa}">
 						<td th:text="${produto.id}"></td>
 						<td th:text="${produto.nome}"></td>
-						<td><input type="text" value="????"/></td>
+						<td th:text="${produto.qtdParaBaixa}"></td>
+						<td th:text="${produto.valorVendaUnitario}"></td>
 						<td class="table-pesq-produto-col-acoes">
 							<div class="btn-group">
 								<a th:href="@{/visualizar/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
@@ -146,6 +119,7 @@
 					<div class="form-inline">
 						<input name="valorTotal" type="text" class="form-control  aw-form-control-inline-sm" 
 						       placeholder="Valor Total" readonly="readonly"/>
+						<a th:href="@{/produto/registrarBaixa}" class="btn  btn-primary" type="submit" style="margin-left: 10px">Registrar</a>
 					</div>
 					
 				</div>
