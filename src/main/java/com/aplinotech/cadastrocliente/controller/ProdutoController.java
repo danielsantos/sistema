@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aplinotech.cadastrocliente.model.Baixa;
+import com.aplinotech.cadastrocliente.model.Entrada;
 import com.aplinotech.cadastrocliente.model.ItemBaixa;
 import com.aplinotech.cadastrocliente.model.Produto;
 import com.aplinotech.cadastrocliente.model.dto.PesquisarProdutoDTO;
 import com.aplinotech.cadastrocliente.service.impl.BaixaServiceImpl;
+import com.aplinotech.cadastrocliente.service.impl.EntradaServiceImpl;
 import com.aplinotech.cadastrocliente.service.impl.ItemBaixaServiceImpl;
 import com.aplinotech.cadastrocliente.service.impl.ProdutoServiceImpl;
 
@@ -38,6 +40,10 @@ public class ProdutoController {
 
 	@Autowired
 	private ItemBaixaServiceImpl itemBaixaServiceImpl;
+	
+	@Autowired
+	private EntradaServiceImpl entradaServiceImpl;
+	
 
 	@RequestMapping(value = "/entrada")
 	public ModelAndView entrada(){
@@ -61,9 +67,18 @@ public class ProdutoController {
 
 		Produto produtoBanco = produtoServiceImpl.findById(produto.getId());
 		produtoBanco.setValorVendaUnitario(produto.getValorVendaUnitario());
+		produtoBanco.setCustoUnitario(produto.getCustoUnitario());
 		produtoBanco.setQuantidadeTotal(produto.getQtdParaBaixa() + produtoBanco.getQuantidadeTotal());
 		
 		produtoServiceImpl.saveOrUpdate(produtoBanco);
+		
+		Entrada entrada = new Entrada();
+		entrada.setCustoUnitario(produto.getCustoUnitario());
+		entrada.setValorVendaUnitario(produto.getValorVendaUnitario());
+		entrada.setProduto(produto);
+		entrada.setQuantidade(produto.getQtdParaBaixa());
+		
+		entradaServiceImpl.saveOrUpdate(entrada);
 		
 		ModelAndView mv = new ModelAndView("produto/entrada");
 		mv.addObject("dto", new PesquisarProdutoDTO());

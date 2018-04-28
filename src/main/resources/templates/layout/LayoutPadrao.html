@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-	<title>Listagem de Clientes</title>
+	<title>SysEstoque</title>
 
 	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/algaworks.min.css}"/>
@@ -64,6 +64,18 @@
           			<a th:href="@{/produto/listar}">
           				<i class="fa  fa-fw  fa-futbol-o"></i>
           				<span>Produtos</span>
+          			</a>
+          			<a th:href="@{/relatorio/saida}">
+          				<i class="fa  fa-fw  fa-file-archive-o"></i>
+          				<span>Relatório de Saída</span>
+          			</a>
+          			<a th:href="@{/relatorio/entrada}">
+          				<i class="fa  fa-fw  fa-file-excel-o"></i>
+          				<span>Relatório de Entrada</span>
+          			</a>
+          			<a th:href="@{/relatorio/estoque}">
+          				<i class="fa  fa-fw  fa-file-image-o"></i>
+          				<span>Relatório de Estoque</span>
           			</a>
 	        		</li>
 	      		</ul>

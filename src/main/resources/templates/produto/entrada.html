@@ -70,11 +70,23 @@
 						<div class="form-inline">
 							<input th:field="*{qtdParaBaixa}" type="text" class="form-control  aw-form-control-inline-sm" />
 							<input th:field="*{valorVendaUnitario}" type="text" class="form-control  aw-form-control-inline-sm" style="margin-left: 10px;" />
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="input-produto-preco">Custo Unitário:</label>
+						<div class="form-inline">
+							<input th:field="*{custoUnitario}" type="text" class="form-control  aw-form-control-inline-sm" />
 							<button class="btn  btn-primary" type="submit" style="margin-left: 10px">Adicionar</button>	
 						</div>
 					</div>
 				</div>
 			</div>
+			
 			<input type="hidden" th:field="*{id}"/>
 		</form>
 		
