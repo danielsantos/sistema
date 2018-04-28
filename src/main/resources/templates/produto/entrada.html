@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-xs-10">
 					<h1>
-						Baixa de Estoque
+						Entrada de Estoque
 					</h1>
 				</div>
 			</div>
@@ -24,10 +24,9 @@
 	</div>
 
 	<div class="container-fluid">
-		
-		<!-- PESQUISA -->
-		<form th:action="@{/produto/pesquisar}" th:object="${dto}" class="form-vertical  js-form-loading" method="POST">
-		
+	
+		<form th:action="@{/produto/entrada/pesquisar}" th:object="${dto}" class="form-vertical  js-form-loading" method="POST">
+	
     		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
 	    		<span th:text="${mensagem}"></span>
 	    		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -48,8 +47,8 @@
 				</div>
 			</div>
 		</form>
-			
-		<form th:action="@{/produto/baixa/add}" th:object="${produto}" class="form-vertical js-form-loading" method="POST">
+		
+		<form th:action="@{/produto/entrada/salvar}" th:object="${produto}" class="form-vertical js-form-loading" method="POST">
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
@@ -66,7 +65,7 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label for="input-produto-preco">Quant. para Baixa:</label>
+						<label for="input-produto-preco">Quant. para Entrada:</label>
 						<label for="input-produto-preco" style="margin-left: 74px;">Valor de Venda Unitario:</label>
 						<div class="form-inline">
 							<input th:field="*{qtdParaBaixa}" type="text" class="form-control  aw-form-control-inline-sm" />
@@ -79,66 +78,8 @@
 			<input type="hidden" th:field="*{id}"/>
 		</form>
 		
-		<br/>
-		
-		<div class="row">
-			<div class="col-xs-10">
-				<h3>
-					Produtos para Baixa
-				</h3>
-			</div>
-		</div>
-		
-		<div class="table-responsive">
-			<table id="tabela-user" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
-				<thead class="aw-table-header-solid">
-					<tr>
-						<th>#</th>
-						<th>Nome</th>
-						<th>Quant. para Baixa</th>
-						<th>Valor Venda Unitário</th>
-						<th>Valor Total do Produto</th>
-						<th>Ações</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr id="count" th:each="produto : ${produtosBaixa}">
-						<td th:text="${produto.id}"></td>
-						<td th:text="${produto.nome}"></td>
-						<td th:text="${produto.qtdParaBaixa}"></td>
-						<td th:text="${produto.valorVendaUnitario}"></td>
-						<td th:text="${produto.valorTotal}"></td>
-						<td class="table-pesq-produto-col-acoes">
-							<div class="btn-group">
-								<a th:href="@{/produto/removeProdutoBaixa/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
-									<i class="fa  fa-fw  fa-close"></i>
-								</a>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		
-		<form th:object="${baixa}">
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label for="input-produto-preco">Valor Total:</label>
-						<div class="form-inline">
-							<input name="valorTotal" type="text" class="form-control  aw-form-control-inline-sm" 
-							       readonly="readonly" th:field="*{valorTotal}" />
-							<a th:href="@{/produto/registrarBaixa}" class="btn  btn-primary" type="submit" style="margin-left: 10px">Registrar</a>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-		</form>
-		
 	</div>
 
 </section>
-
 </body>
 </html>

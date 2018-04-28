@@ -37,12 +37,57 @@
 	    			<span th:text="${error.message}"></span>
 	    		</div>
     		</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('codigo')} ? has-error">
+						<label for="name">Código</label>
+						<input id="name" th:field="*{codigo}" type="text" class="form-control" placeholder="Código"/>
+					</div>
+				</div>
+			</div>
 			
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
 						<label for="name">Nome</label>
 						<input id="name" th:field="*{nome}" type="text" class="form-control" placeholder="Nome"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+						<label for="name">Descrição</label>
+						<input id="name" th:field="*{descricao}" type="text" class="form-control" placeholder="Descrição"/>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('quantidadeTotal')} ? has-error">
+						<label for="name">Quant. em Estoque</label>
+						<input id="name" th:field="*{quantidadeTotal}" type="text" class="form-control" placeholder="Quant. em Estoque"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('custoUnitario')} ? has-error">
+						<label for="name">Custo Unitário</label>
+						<input id="name" th:field="*{custoUnitario}" type="text" class="form-control" placeholder="Custo Unitário"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('valorVendaUnitario')} ? has-error">
+						<label for="name">Valor de Venda Unitário</label>
+						<input id="name" th:field="*{valorVendaUnitario}" type="text" class="form-control" placeholder="Valor de Venda Unitário"/>
 					</div>
 				</div>
 			</div>

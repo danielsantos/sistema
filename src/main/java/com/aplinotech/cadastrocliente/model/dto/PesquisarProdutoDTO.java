@@ -2,14 +2,14 @@ package com.aplinotech.cadastrocliente.model.dto;
 
 public class PesquisarProdutoDTO {
 	
-	private Integer codigoProduto;
+	private String codigoProduto;
 
-	public Integer getCodigoProduto() {
+	public String getCodigoProduto() {
 		return codigoProduto;
 	}
 
-	public void setCodigoProduto(Integer codigoProduto) {
+	public void setCodigoProduto(String codigoProduto) {
 		this.codigoProduto = codigoProduto;
 	}
-
+	
 }

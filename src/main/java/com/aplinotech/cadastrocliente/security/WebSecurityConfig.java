@@ -10,8 +10,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
-	private static final String USERNAME = "admin";
-	private static final String PASSWORD = "admin";
+	private static final String USERNAME = "a";
+	private static final String PASSWORD = "a";
 	private static final String ROLE 	 = "ADMIN";
 	
 	@Override

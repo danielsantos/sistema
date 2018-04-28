@@ -11,6 +11,8 @@ public interface ProdutoService {
     void deleteLogic(Long id);
     
     Produto findById(Long id);
+    
+    Produto findByCodigoAndActive(String codigo);
  
     List<Produto> findAll();
  

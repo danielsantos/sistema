@@ -4,11 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.function.LongFunction;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.tuple.GeneratedValueGeneration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -41,6 +39,39 @@ public class ProdutoController {
 	@Autowired
 	private ItemBaixaServiceImpl itemBaixaServiceImpl;
 
+	@RequestMapping(value = "/entrada")
+	public ModelAndView entrada(){
+		ModelAndView mv = new ModelAndView("produto/entrada");
+		mv.addObject("dto", new PesquisarProdutoDTO());
+		mv.addObject("produto", new Produto());
+		return mv;
+	}
+	
+	@RequestMapping(value = "/entrada/pesquisar", method = RequestMethod.POST)
+	public ModelAndView entradaPesquisar(@ModelAttribute("dto") PesquisarProdutoDTO dto) {
+		Produto produto = produtoServiceImpl.findByCodigoAndActive(dto.getCodigoProduto());
+		ModelAndView mv = new ModelAndView("produto/entrada");
+		mv.addObject("dto", new PesquisarProdutoDTO());
+		mv.addObject("produto", produto);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/entrada/salvar", method = RequestMethod.POST)
+	public ModelAndView entradaSalvar(@ModelAttribute(value = "produto") Produto produto) {
+
+		Produto produtoBanco = produtoServiceImpl.findById(produto.getId());
+		produtoBanco.setValorVendaUnitario(produto.getValorVendaUnitario());
+		produtoBanco.setQuantidadeTotal(produto.getQtdParaBaixa() + produtoBanco.getQuantidadeTotal());
+		
+		produtoServiceImpl.saveOrUpdate(produtoBanco);
+		
+		ModelAndView mv = new ModelAndView("produto/entrada");
+		mv.addObject("dto", new PesquisarProdutoDTO());
+ 		mv.addObject("produto", new Produto());
+ 		mv.addObject("mensagem", "Entrada de Estoque efetuada com sucesso!");
+ 		return mv;
+ 		
+	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.GET)
 	public ModelAndView novo(){
@@ -52,12 +83,14 @@ public class ProdutoController {
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public ModelAndView salvar(@ModelAttribute(value = "produto") Produto produto, Errors errors, ModelMap modelMap){
 		ModelAndView mv = new ModelAndView("produto/novo");
-		modelMap.addAttribute("produto", produto);
 		if(errors.hasErrors()){
+			modelMap.addAttribute("produto", produto);
 			return mv;
 		} else {
+			produto.setStatus("A"); // TODO criar um enum
 			produtoServiceImpl.saveOrUpdate(produto);
 			mv.addObject("mensagem", "Salvo com sucesso!");
+			modelMap.addAttribute("produto", new Produto());
 		}
 		return mv;
 	}
@@ -157,9 +190,10 @@ public class ProdutoController {
 			session.setAttribute("baixa", baixa);
 			
 		}
-
 		
-		Produto produto = produtoServiceImpl.findById(new Long(dto.getCodigoProduto()));
+		Produto produto = produtoServiceImpl.findByCodigoAndActive(dto.getCodigoProduto());
+		
+		// TODO retorna msg de erro caso nao encontre o produto
 		
 		modelMap.addAttribute("produtosBaixa", baixa.getProdutos());
 		modelMap.addAttribute("dto", new PesquisarProdutoDTO());
