@@ -1,5 +1,6 @@
 package com.aplinotech.cadastrocliente.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.aplinotech.cadastrocliente.model.Baixa;
 import com.aplinotech.cadastrocliente.model.Produto;
 import com.aplinotech.cadastrocliente.model.dto.PesquisarProdutoDTO;
 import com.aplinotech.cadastrocliente.service.impl.ProdutoServiceImpl;
@@ -26,22 +28,32 @@ public class HomeController {
 	public String baixa(ModelMap modelMap, HttpSession session) {
 		
 		List<Produto> list = new ArrayList<Produto>();
+		Baixa baixa = new Baixa();
 		
-		if ( session.getAttribute("produtosBaixa") == null ) {
-			
-			session.setAttribute("produtosBaixa", new ArrayList<Produto>());
+		if ( session.getAttribute("baixa") == null ) {
+
+			session.setAttribute("baixa", baixa);
 			
 		} else {
 			
-			list = (List<Produto>) session.getAttribute("produtosBaixa");
+			baixa = (Baixa) session.getAttribute("baixa");
+			BigDecimal total = BigDecimal.ZERO;
+			if ( baixa.getProdutos() != null && !baixa.getProdutos().isEmpty() ) {
+				for (Produto p : list) {
+					total = p.getValorTotal().add(total);
+				}
+			}
+			
+			baixa.setValorTotal(total);
+			session.setAttribute("baixa", baixa);
 			
 		}
 		
-		modelMap.addAttribute("produtos", produtoServiceImpl.findAll());
 		modelMap.addAttribute("produtosBaixa", list);
 		modelMap.addAttribute("dto", new PesquisarProdutoDTO());
 		modelMap.addAttribute("produto", new Produto());
-		return "produto/baixa";
+		modelMap.addAttribute("baixa", baixa);
+		return "produto/baixa";	
 	}
 
 }

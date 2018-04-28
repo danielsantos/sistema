@@ -65,12 +65,29 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label for="input-produto-preco">Produto:</label>
+						<label for="input-produto-preco" style="margin-left: 134px;">Quant. em Estoque:</label>
 						<div class="form-inline">
 							<input th:field="*{nome}" type="text" class="form-control  aw-form-control-inline-sm" readonly="readonly" />
+							<input th:field="*{quantidadeTotal}" type="text" class="form-control  aw-form-control-inline-sm" readonly="readonly" style="margin-left: 10px;" />
 						</div>
 					</div>
 				</div>
 			</div>
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="input-produto-preco">Quant. para Baixa:</label>
+						<label for="input-produto-preco" style="margin-left: 74px;">Valor de Venda Unitario:</label>
+						<div class="form-inline">
+							<input th:field="*{qtdParaBaixa}" type="text" class="form-control  aw-form-control-inline-sm" />
+							<input th:field="*{valorVendaUnitario}" type="text" class="form-control  aw-form-control-inline-sm" style="margin-left: 10px;" />
+							<button class="btn  btn-primary" type="submit" style="margin-left: 10px">Adicionar</button>	
+						</div>
+					</div>
+				</div>
+			</div>
+			<input type="hidden" th:field="*{id}"/>
 		</form>
 		
 		<br/>
@@ -91,6 +108,7 @@
 						<th>Nome</th>
 						<th>Quant. para Baixa</th>
 						<th>Valor Venda Unitário</th>
+						<th>Valor Total do Produto</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
@@ -100,9 +118,10 @@
 						<td th:text="${produto.nome}"></td>
 						<td th:text="${produto.qtdParaBaixa}"></td>
 						<td th:text="${produto.valorVendaUnitario}"></td>
+						<td th:text="${produto.valorTotal}"></td>
 						<td class="table-pesq-produto-col-acoes">
 							<div class="btn-group">
-								<a th:href="@{/visualizar/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
+								<a th:href="@{/produto/removeProdutoBaixa/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
 									<i class="fa  fa-fw  fa-close"></i>
 								</a>
 							</div>
@@ -112,19 +131,21 @@
 			</table>
 		</div>
 		
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="form-group">
-					<label for="input-produto-preco">Valor Total:</label>
-					<div class="form-inline">
-						<input name="valorTotal" type="text" class="form-control  aw-form-control-inline-sm" 
-						       placeholder="Valor Total" readonly="readonly"/>
-						<a th:href="@{/produto/registrarBaixa}" class="btn  btn-primary" type="submit" style="margin-left: 10px">Registrar</a>
+		<form th:object="${baixa}">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="input-produto-preco">Valor Total:</label>
+						<div class="form-inline">
+							<input name="valorTotal" type="text" class="form-control  aw-form-control-inline-sm" 
+							       readonly="readonly" th:field="*{valorTotal}" />
+							<a th:href="@{/produto/registrarBaixa}" class="btn  btn-primary" type="submit" style="margin-left: 10px">Registrar</a>
+						</div>
+						
 					</div>
-					
 				</div>
 			</div>
-		</div>
+		</form>
 		
 	</div>
 
