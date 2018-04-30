@@ -8,12 +8,14 @@ public interface ProdutoService {
 
     void saveOrUpdate(Produto produto);
  
-    void deleteLogic(Long id);
+    void deleteLogic(String codigo);
     
     Produto findById(Long id);
     
     Produto findByCodigoAndActive(String codigo);
  
     List<Produto> findAll();
+    
+    List<Produto> findAllActive();
  
 }

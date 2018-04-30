@@ -23,8 +23,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	@Override
-	public void deleteLogic(Long id) {
-		Produto produto = produtoRepository.findOne(id);
+	public void deleteLogic(String codigo) {
+		Produto produto = produtoRepository.findByCodigoAndActive(codigo);
 		produto.setStatus("I");
 		saveOrUpdate(produto);
 	}
@@ -42,6 +42,11 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	public List<Produto> findAll() {
 		return produtoRepository.findAll();
+	}
+	
+	@Override
+	public List<Produto> findAllActive() {
+		return produtoRepository.findAllActive();
 	}
 
 }

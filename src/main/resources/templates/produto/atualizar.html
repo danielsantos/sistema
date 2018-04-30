@@ -21,7 +21,7 @@
 
 	<div class="container-fluid">
 	
-		<form method="POST" th:action="@{/alterar}" th:object="${user}" class="form-vertical  js-form-loading">
+		<form method="POST" th:action="@{/produto/alterar}" th:object="${produto}" class="form-vertical  js-form-loading">
 			
 			<!-- MENSAGEM DE SUCESSO -->
     		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
@@ -39,92 +39,65 @@
     		</div>
 			
 			<input type="hidden" th:field="*{id}"/>
+			<input type="hidden" th:field="*{status}"/>
 			
 			<div class="row">
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('name')} ? has-error">
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('codigo')} ? has-error">
+						<label for="name">Código</label>
+						<input id="name" th:field="*{codigo}" type="text" class="form-control" readonly="readonly" />
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
 						<label for="name">Nome</label>
-						<input id="name" th:field="*{name}" type="text" class="form-control" placeholder="Nome"/>
-					</div>
-				</div>
-				
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('documento')} ? has-error">
-						<label for="documento">CPF/CNPJ</label>
-						<input id="documento" th:field="*{documento}" type="text" class="form-control" placeholder="CPF/CNPJ"/>
+						<input id="name" th:field="*{nome}" type="text" class="form-control" placeholder="Nome"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="row">
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('telefoneFixo')} ? has-error">
-						<label for="telefoneFixo">Telefone</label>
-						<input id="telefoneFixo" th:field="*{telefoneFixo}" type="text" class="form-control" placeholder="Telefone Fixo"/>
-					</div>
-				</div>
-				
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('celular')} ? has-error">
-						<label for="celular">Celular</label>
-						<input id="celular" th:field="*{celular}" type="text" class="form-control" placeholder="Celular"/>
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+						<label for="name">Descrição</label>
+						<input id="name" th:field="*{descricao}" type="text" class="form-control" placeholder="Descrição"/>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('endereco')} ? has-error">
-						<label for="endereco">Endereco</label>
-						<input id="endereco" th:field="*{endereco}" type="text" class="form-control" placeholder="Endereco"/>
-					</div>
-				</div>
-
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('cidade')} ? has-error">
-						<label for="cidade">Cidade</label>
-						<input id="cidade" th:field="*{cidade}" type="text" class="form-control" placeholder="Cidade"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('bairro')} ? has-error">
-						<label for="bairro">Bairro</label>
-						<input id="bairro" th:field="*{bairro}" type="text" class="form-control" placeholder="Bairro"/>
-					</div>
-				</div>
-
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('uf')} ? has-error">
-						<label for="uf">UF</label>
-						<input id="uf" th:field="*{uf}" type="text" class="form-control" placeholder="UF"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('cep')} ? has-error">
-						<label for="cep">CEP</label>
-						<input id="cep" th:field="*{cep}" type="text" class="form-control" placeholder="CEP"/>
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('quantidadeTotal')} ? has-error">
+						<label for="name">Quant. em Estoque</label>
+						<input id="name" th:field="*{quantidadeTotal}" type="text" class="form-control" placeholder="Quant. em Estoque"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="row">
-				<div class="col-sm-3">
-					<div class="form-group" th:classappend="${#fields.hasErrors('email')} ? has-error">
-						<label for="email">Email</label>
-						<input id="email" th:field="*{email}" type="text" class="form-control" placeholder="Email"/>
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('custoUnitario')} ? has-error">
+						<label for="name">Custo Unitário</label>
+						<input id="name" th:field="*{custoUnitario}" type="text" class="form-control" placeholder="Custo Unitário"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('valorVendaUnitario')} ? has-error">
+						<label for="name">Valor de Venda Unitário</label>
+						<input id="name" th:field="*{valorVendaUnitario}" type="text" class="form-control" placeholder="Valor de Venda Unitário"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<button class="btn  btn-primary" type="submit">Salvar</button>
-				<a th:href="@{/}" class="btn  btn-default">Voltar</a>
+				<a th:href="@{/produto/listar}" class="btn  btn-default">Voltar</a>
 			</div>
 	
 		</form>

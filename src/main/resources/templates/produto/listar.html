@@ -57,25 +57,27 @@
 				<thead class="aw-table-header-solid">
 					<tr>
 						<th>#</th>
-						<th>Nome</th>
+						<th>Produto</th>
+						<th>Quantidade em Estoque</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr id="count" th:each="produto : ${produtos}">
-						<td th:text="${produto.id}"></td>
+						<td th:text="${produto.codigo}"></td>
 						<td th:text="${produto.nome}"></td>
+						<td th:text="${produto.quantidadeTotal}"></td>
 						<td class="table-pesq-produto-col-acoes">
 							<div class="btn-group">
-								<a th:href="@{/visualizar/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
+								<a th:href="@{/produto/visualizar/{codigo}(codigo=${produto.codigo})}" class="btn  btn-default btn-xs">
 									<i class="fa  fa-fw  fa-eye"></i>
 								</a>
 							
-								<a th:href="@{/atualizar/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
+								<a th:href="@{/produto/atualizar/{codigo}(codigo=${produto.codigo})}" class="btn  btn-default btn-xs">
 									<i class="fa  fa-pencil"></i>
 								</a>
 								
-								<a th:href="@{/excluir/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
+								<a th:href="@{/produto/excluir/{codigo}(codigo=${produto.codigo})}" class="btn  btn-default btn-xs">
 									<i class="fa  fa-trash"></i>
 								</a>
 							</div>
@@ -106,7 +108,7 @@
 				<span class="aw-pagination-info">
 					<script>
 						var row = document.getElementById("tabela-user").rows.length;
-						document.write("<b>" + (row - 1) + "</b>" + " Clientes cadastrados");
+						document.write("<b>" + (row - 1) + "</b>" + " Produtos cadastrados");
 					</script>
 				</span>
 			</div>

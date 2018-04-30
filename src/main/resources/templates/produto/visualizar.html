@@ -25,7 +25,7 @@
 		<div class="table-responsive">
 		
 			<div>
-				<h2 th:text="${user.name}"></h2>
+				<h2 th:text="${produto.nome}"></h2>
 				<hr/>
 			</div>
 		
@@ -33,44 +33,23 @@
 				<thead class="aw-table-header-solid">
 					<tr>
 						<td style="padding-bottom: 10px;"><b>Código: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.id}"></td>
+						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${produto.codigo}"></td>
 					</tr>
 					<tr>
-						<td style="padding-bottom: 10px;"><b>CPF/CNPJ: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.documento}"></td>
-					</tr>
-					
-					<tr>
-						<td style="padding-bottom: 10px;"><b>Telefone: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.telefoneFixo}"></td>
+						<td style="padding-bottom: 10px;"><b>Descrição: </b></td>
+						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${produto.descricao}"></td>
 					</tr>
 					<tr>
-						<td style="padding-bottom: 10px;"><b>Celular: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.celular}"></td>
+						<td style="padding-bottom: 10px;"><b>Quantidade em Estoque: </b></td>
+						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${produto.quantidadeTotal}"></td>
 					</tr>
 					<tr>
-						<td style="padding-bottom: 10px;"><b>Endereço: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.endereco}"></td>
+						<td style="padding-bottom: 10px;"><b>Custo Unitário: </b></td>
+						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${produto.custoUnitario}"></td>
 					</tr>
 					<tr>
-						<td style="padding-bottom: 10px;"><b>Cidade: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.cidade}"></td>
-					</tr>
-					<tr>
-						<td style="padding-bottom: 10px;"><b>Bairro: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.bairro}"></td>
-					</tr>
-					<tr>
-						<td style="padding-bottom: 10px;"><b>Estado: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.uf}"></td>
-					</tr>
-					<tr>
-						<td style="padding-bottom: 10px;"><b>CEP: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.cep}"></td>
-					</tr>					
-					<tr>
-						<td style="padding-bottom: 10px;"><b>Email: </b></td>
-						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${user.email}"></td>
+						<td style="padding-bottom: 10px;"><b>Valor de Venda Unitário: </b></td>
+						<td style="padding-left: 10px; padding-bottom: 10px;" th:text="${produto.valorVendaUnitario}"></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -79,9 +58,9 @@
 			</table>
 			
 			<div class="form-group">
-				<a th:href="@{/atualizar/{codigo}(codigo=${user.id})}" class="btn  btn-primary" type="submit">Editar</a>
-				<a th:href="@{/excluir/{codigo}(codigo=${user.id})}" class="btn  btn-primary" type="submit">Excluir</a>
-				<a th:href="@{/}" class="btn  btn-default">Voltar</a>
+				<a th:href="@{/produto/atualizar/{codigo}(codigo=${produto.codigo})}" class="btn  btn-primary" type="submit">Editar</a>
+				<a th:href="@{/produto/excluir/{codigo}(codigo=${produto.codigo})}" class="btn  btn-primary" type="submit">Excluir</a>
+				<a th:href="@{/produto/listar}" class="btn  btn-default">Voltar</a>
 			</div>
 		</div>
 	</div>

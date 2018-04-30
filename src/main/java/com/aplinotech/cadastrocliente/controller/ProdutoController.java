@@ -111,10 +111,10 @@ public class ProdutoController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/atualizar/{id}", method = RequestMethod.GET)
-	public ModelAndView alterar(@PathVariable(value = "id") Long id){
+	@RequestMapping(value = "/atualizar/{codigo}", method = RequestMethod.GET)
+	public ModelAndView alterar(@PathVariable(value = "codigo") String codigo){
 		ModelAndView mv = new ModelAndView("produto/atualizar");
-		mv.addObject("produto", produtoServiceImpl.findById(id));
+		mv.addObject("produto", produtoServiceImpl.findByCodigoAndActive(codigo));
 		return mv;
 	}
 	
@@ -131,22 +131,21 @@ public class ProdutoController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/excluir/{id}", method =RequestMethod.GET)
-	public String excluir(@PathVariable(value = "id") Long id, ModelMap modelMap){
-		produtoServiceImpl.deleteLogic(id);
+	@RequestMapping(value = "/excluir/{codigo}", method =RequestMethod.GET)
+	public String excluir(@PathVariable(value = "codigo") String codigo, ModelMap modelMap){
+		produtoServiceImpl.deleteLogic(codigo);
 		return "redirect:/produto/listar";
 	}
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(ModelMap modelMap) {
-		List<Produto> produtos = produtoServiceImpl.findAll();
-		modelMap.addAttribute("produtos", produtos);
+		modelMap.addAttribute("produtos", produtoServiceImpl.findAllActive());
 		return "produto/listar";
 	}
 	
-	@RequestMapping(value = "/visualizar/{id}", method = RequestMethod.GET)
-	public String visualizar(@PathVariable(value = "id") Long id, ModelMap modelMap){
-		modelMap.addAttribute("produto", produtoServiceImpl.findById(id));
+	@RequestMapping(value = "/visualizar/{codigo}", method = RequestMethod.GET)
+	public String visualizar(@PathVariable(value = "codigo") String codigo, ModelMap modelMap){
+		modelMap.addAttribute("produto", produtoServiceImpl.findByCodigoAndActive(codigo));
 		return "produto/visualizar";
 	}	
 	
