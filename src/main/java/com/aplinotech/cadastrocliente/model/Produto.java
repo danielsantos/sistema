@@ -44,6 +44,13 @@ public class Produto {
 	@Transient
 	private BigDecimal valorTotal;
 	
+	@Transient
+	private BigDecimal custoUnitarioTotal = BigDecimal.ZERO;
+	
+	@Transient
+	private BigDecimal valorVendaUnitarioTotal = BigDecimal.ZERO;
+
+	
 
 	public Long getId() {
 		return id;
@@ -144,6 +151,14 @@ public class Produto {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public BigDecimal getCustoUnitarioTotal() {
+		return custoUnitario.multiply(new BigDecimal(quantidadeTotal));
+	}
+
+	public BigDecimal getValorVendaUnitarioTotal() {
+		return valorVendaUnitario.multiply(new BigDecimal(quantidadeTotal));
 	}
 	
 }

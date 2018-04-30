@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aplinotech.cadastrocliente.model.Entrada;
+import com.aplinotech.cadastrocliente.model.Produto;
 import com.aplinotech.cadastrocliente.model.dto.RelatorioDTO;
 import com.aplinotech.cadastrocliente.service.impl.EntradaServiceImpl;
+import com.aplinotech.cadastrocliente.service.impl.ProdutoServiceImpl;
 
 @Controller
 @RequestMapping("/relatorio")
@@ -21,6 +23,10 @@ public class RelatorioController {
 	
 	@Autowired
 	private EntradaServiceImpl entradaServiceImpl;
+	
+	@Autowired
+	private ProdutoServiceImpl produtoServiceImpl;
+
 
 	@RequestMapping("/entrada")
 	public ModelAndView entrada(){
@@ -65,5 +71,26 @@ public class RelatorioController {
 		ModelAndView mv = new ModelAndView("relatorio/estoque");
 		return mv;
 	}
+	
+	@RequestMapping("/estoque/gerar")
+	public ModelAndView estoqueGerar(){
+		ModelAndView mv = new ModelAndView("relatorio/estoquerel");
+		List<Produto> list = produtoServiceImpl.findAll();
+		
+		BigDecimal custoUnitarioTotal = new BigDecimal(0);
+		BigDecimal valorVendaUnitarioTotal = new BigDecimal(0);
+		
+		for (Produto p : list) {
+			custoUnitarioTotal = p.getCustoUnitarioTotal().add(custoUnitarioTotal);
+			valorVendaUnitarioTotal = p.getValorVendaUnitarioTotal().add(valorVendaUnitarioTotal);
+		}
+		
+		mv.addObject("list", list);
+		mv.addObject("custoUnitarioTotal", custoUnitarioTotal);
+		mv.addObject("valorVendaUnitarioTotal", valorVendaUnitarioTotal);
+		mv.addObject("data", new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()));
+		return mv;
+	}
+
 	
 }
