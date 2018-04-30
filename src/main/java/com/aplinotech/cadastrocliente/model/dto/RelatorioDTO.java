@@ -1,11 +1,12 @@
 package com.aplinotech.cadastrocliente.model.dto;
 
-import org.springframework.stereotype.Controller;
+import java.util.Date;
 
-@Controller
 public class RelatorioDTO {
 
 	private String dataInicio;
+	
+	private Date dataIni;
 	
 	private String dataFim;
 
@@ -24,5 +25,13 @@ public class RelatorioDTO {
 	public void setDataFim(String dataFim) {
 		this.dataFim = dataFim;
 	}
-	
+
+	public Date getDataIni() {
+		return dataIni;
+	}
+
+	public void setDataIni(Date dataIni) {
+		this.dataIni = dataIni;
+	}
+
 }

@@ -25,7 +25,7 @@ public class EntradaServiceImpl implements EntradaService {
 
 	@Override
 	public List<Entrada> findByDates(Date dataInicio, Date dataFim) {
-		return entradaRepository.findByDates();
+		return entradaRepository.findByDates(dataInicio, dataFim);
 	}
 
 }

@@ -2,6 +2,7 @@ package com.aplinotech.cadastrocliente.controller;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,10 +37,17 @@ public class RelatorioController {
 	}
 	
 	@RequestMapping("/entrada/gerar")
-	public ModelAndView entradaGerar(@ModelAttribute("dto") RelatorioDTO dto){
+	public ModelAndView entradaGerar(@ModelAttribute("dto") RelatorioDTO dto) {
 		ModelAndView mv = new ModelAndView("relatorio/entradarel");
 		
-		List<Entrada> list = entradaServiceImpl.findByDates(new Date(), new Date());
+		SimpleDateFormat sdfBD = new SimpleDateFormat("dd/MM/yyyy");
+		List<Entrada> list = new ArrayList<Entrada>();
+		
+		try {
+			list = entradaServiceImpl.findByDates(sdfBD.parse(dto.getDataInicio()), sdfBD.parse(dto.getDataFim()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
@@ -63,8 +71,42 @@ public class RelatorioController {
 	@RequestMapping("/saida")
 	public ModelAndView saida(){
 		ModelAndView mv = new ModelAndView("relatorio/saida");
+		mv.addObject("dto", new RelatorioDTO());
 		return mv;
 	}
+	
+	@RequestMapping("/saida/gerar")
+	public ModelAndView saidaGerar(@ModelAttribute("dto") RelatorioDTO dto){
+		ModelAndView mv = new ModelAndView("relatorio/saidarel");
+		
+		SimpleDateFormat sdfBD = new SimpleDateFormat("dd/MM/yyyy");
+		List<Entrada> list = new ArrayList<Entrada>();
+		
+		try {
+			//list = entradaServiceImpl.findByDates(sdfBD.parse(dto.getDataInicio()), sdfBD.parse(dto.getDataFim()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		BigDecimal custoUnitarioTotal = new BigDecimal(0);
+		BigDecimal valorVendaUnitarioTotal = new BigDecimal(0);
+		
+		for (Entrada e : list) {
+			e.setDataFormatada(sdf.format(e.getData()));
+			custoUnitarioTotal = e.getCustoUnitarioTotal().add(custoUnitarioTotal);
+			valorVendaUnitarioTotal = e.getValorVendaUnitarioTotal().add(valorVendaUnitarioTotal);
+		}
+		
+		mv.addObject("list", list);
+		mv.addObject("custoUnitarioTotal", custoUnitarioTotal);
+		mv.addObject("valorVendaUnitarioTotal", valorVendaUnitarioTotal);
+		mv.addObject("data", new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()));
+		
+		return mv;
+	}
+
 
 	@RequestMapping("/estoque")
 	public ModelAndView estoque(){
