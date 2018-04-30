@@ -1,6 +1,7 @@
 package com.aplinotech.cadastrocliente.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Entrada {
@@ -28,6 +30,18 @@ public class Entrada {
 	
 	@Column
 	private BigDecimal valorVendaUnitario = BigDecimal.ZERO;
+	
+	@Column
+	private Date data;
+	
+	@Transient
+	private String dataFormatada;
+	
+	@Transient
+	private BigDecimal custoUnitarioTotal;
+
+	@Transient
+	private BigDecimal valorVendaUnitarioTotal;
 
 	public Long getId() {
 		return id;
@@ -67,6 +81,30 @@ public class Entrada {
 
 	public void setValorVendaUnitario(BigDecimal valorVendaUnitario) {
 		this.valorVendaUnitario = valorVendaUnitario;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public String getDataFormatada() {
+		return dataFormatada;
+	}
+
+	public void setDataFormatada(String dataFormatada) {
+		this.dataFormatada = dataFormatada;
+	}
+
+	public BigDecimal getCustoUnitarioTotal() {
+		return custoUnitario.multiply(new BigDecimal(quantidade));
+	}
+
+	public BigDecimal getValorVendaUnitarioTotal() {
+		return valorVendaUnitario.multiply(new BigDecimal(quantidade));
 	}
 	
 }

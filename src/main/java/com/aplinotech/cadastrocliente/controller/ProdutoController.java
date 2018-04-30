@@ -77,6 +77,7 @@ public class ProdutoController {
 		entrada.setValorVendaUnitario(produto.getValorVendaUnitario());
 		entrada.setProduto(produto);
 		entrada.setQuantidade(produto.getQtdParaBaixa());
+		entrada.setData(new Date());
 		
 		entradaServiceImpl.saveOrUpdate(entrada);
 		
