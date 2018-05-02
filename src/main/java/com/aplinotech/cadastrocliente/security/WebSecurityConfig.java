@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 			.anyRequest()
 			.authenticated()
-			.and().formLogin().loginPage("/login")
+			.and().formLogin().loginPage("/login").defaultSuccessUrl("/home", true)
 			.permitAll()
 			.and().logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
