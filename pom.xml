@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.aplinotech</groupId>
-	<artifactId>cadastro-cliente</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<artifactId>sysestoque</artifactId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
 
-	<name>cadastro-cliente</name>
-	<description>Demo project for Spring Boot</description>
+	<name>sysestoque</name>
+	<description>Sistema Controlador de Estoque</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
