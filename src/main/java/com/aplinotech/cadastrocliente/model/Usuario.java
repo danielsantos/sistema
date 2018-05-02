@@ -1,58 +1,71 @@
 package com.aplinotech.cadastrocliente.model;
 
+import java.util.Date;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
 	private Long id;
+
+	@Column(length = 100)
+	private String nome;
 	
-	@NotEmpty(message = "Campo Nome é obrigatório")
-	@Column(name = "name", nullable = true)
-	private String name;
+	@Column
+	private Date dataNascimento;
 	
-	@Column(nullable = true)
-	private String documento;
-	
-	@Column(nullable = true)
-	private String telefoneFixo;
-	
-	@Column(nullable = true)
-	private String celular;
-	
-	@Column(nullable = true)
-	private String endereco;
-	
-	@Column(nullable = true)
-	private String cidade;
-	
-	@Column(nullable = true)
-	private String bairro;
-	
-	@Column(nullable = true)
-	private String uf;
-	
-	@Column(nullable = true)
-	private String cep;
-	
-	@Column(nullable = true)
-	private String observacoes;
-	
-	@Column(nullable = true)
+	@Column
+	private String username;
+
+	@Column(length = 80)
 	private String email;
 	
-//	@Column(nullable = true)
-//	private Date dataNascimento;
+	@Transient
+	private String confirmeEmail;
 
+	@Column
+	private String password;
+
+	@Column(nullable = true, length = 1)
+	private String status;
+
+	@Column
+	private Date dataCadastro;
+	
+	@Transient
+	private String passwordConfirm;
+
+	@ManyToMany
+	@JoinTable(name = "usuario_role", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public Long getId() {
 		return id;
@@ -62,92 +75,68 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getDocumento() {
-		return documento;
+	public String getPasswordConfirm() {
+		return passwordConfirm;
 	}
 
-	public void setDocumento(String documento) {
-		this.documento = documento;
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
 	}
 
-	public String getTelefoneFixo() {
-		return telefoneFixo;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setTelefoneFixo(String telefoneFixo) {
-		this.telefoneFixo = telefoneFixo;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
-	public String getCelular() {
-		return celular;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setCelular(String celular) {
-		this.celular = celular;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public String getEndereco() {
-		return endereco;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getCidade() {
-		return cidade;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
-	public String getBairro() {
-		return bairro;
+	public String getConfirmeEmail() {
+		return confirmeEmail;
 	}
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
+	public void setConfirmeEmail(String confirmeEmail) {
+		this.confirmeEmail = confirmeEmail;
 	}
 
-	public String getUf() {
-		return uf;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setUf(String uf) {
-		this.uf = uf;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getObservacoes() {
-		return observacoes;
-	}
-
-	public void setObservacoes(String observacoes) {
-		this.observacoes = observacoes;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 }

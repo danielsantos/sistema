@@ -12,7 +12,7 @@ import com.aplinotech.cadastrocliente.service.UserService;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<Usuario> findByName(String name) {
-		List<Usuario> users = userRepository.findByName(name);
+	public List<Usuario> findByNome(String nome) {
+		List<Usuario> users = userRepository.findByNome(nome);
 		return users;
 	}
 
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean isUserExist(Usuario user) {
-		return findByName(user.getName()) != null;
+		return findByNome(user.getNome()) != null;
 	}
 	
 }

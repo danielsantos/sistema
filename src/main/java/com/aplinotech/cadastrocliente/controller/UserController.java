@@ -112,7 +112,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = Routes.USER_PESQUISAR, method = RequestMethod.GET)
 	public String pesquisar(@ModelAttribute(value = "name") String name, ModelMap modelMap){
-		List<Usuario> users = userServiceImpl.findByName(name);
+		List<Usuario> users = userServiceImpl.findByNome(name);
 		modelMap.addAttribute("users", users);
 		return Views.LISTAR;
 	}
