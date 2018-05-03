@@ -6,6 +6,35 @@
 	
 <head>
 	<title>SysEstoque</title>
+	<script type="text/javascript">
+	   function mascaraDataInicio(campoData){
+			var data = campoData.value;
+			if (data.length == 2) {
+				data = data + '/';
+				document.getElementById('dataInicio').value = data;
+				return true;              
+			}
+			if (data.length == 5){
+				data = data + '/';
+	            document.getElementById('dataInicio').value = data;
+				return true;
+			}
+		}
+	   
+	    function mascaraDataFim(campoData){
+			var data = campoData.value;
+			if (data.length == 2) {
+				data = data + '/';
+				document.getElementById('dataFim').value = data;
+				return true;              
+			}
+			if (data.length == 5){
+				data = data + '/';
+	            document.getElementById('dataFim').value = data;
+				return true;
+			}
+		}
+	</script>	
 </head>
 
 <body>
@@ -34,8 +63,10 @@
 						<label for="input-produto-preco">Data Início:</label>
 						<label for="input-produto-preco" style="margin-left: 120px">Data Fim:</label>
 						<div class="form-inline">
-							<input th:field="*{dataInicio}" type="text" class="form-control  aw-form-control-inline-sm" placeholder="Data Início" />
-							<input th:field="*{dataFim}" type="text" class="form-control  aw-form-control-inline-sm" placeholder="Data Fim" style="margin-left: 10px"/>
+							<input th:field="*{dataInicio}" id="dataInicio" type="text" onKeyUp="mascaraDataInicio(this)"
+							       class="form-control  aw-form-control-inline-sm" placeholder="Data Início" maxlength="10" />
+							<input th:field="*{dataFim}" id="dataFim" type="text" maxlength="10" onKeyUp="mascaraDataFim(this)"
+							       class="form-control  aw-form-control-inline-sm" placeholder="Data Fim" style="margin-left: 10px"/>
 							<button class="btn  btn-primary" type="submit" style="margin-left: 10px">Gerar</button>							       
 						</div>
 					</div>

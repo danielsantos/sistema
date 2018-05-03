@@ -114,6 +114,22 @@
 		
 		<br/>
 		
+		<form th:object="${baixa}">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="input-produto-preco">Valor Total:</label>
+						<div class="form-inline">
+							<input name="valorTotal" type="text" class="form-control  aw-form-control-inline-sm" 
+							       readonly="readonly" th:field="*{valorTotal}" />
+							<a th:href="@{/produto/registrarBaixa}" class="btn  btn-primary" type="submit" style="margin-left: 10px">Registrar</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</form>
+		
 		<div class="row">
 			<div class="col-xs-10">
 				<h3>
@@ -152,22 +168,6 @@
 				</tbody>
 			</table>
 		</div>
-		
-		<form th:object="${baixa}">
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label for="input-produto-preco">Valor Total:</label>
-						<div class="form-inline">
-							<input name="valorTotal" type="text" class="form-control  aw-form-control-inline-sm" 
-							       readonly="readonly" th:field="*{valorTotal}" />
-							<a th:href="@{/produto/registrarBaixa}" class="btn  btn-primary" type="submit" style="margin-left: 10px">Registrar</a>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-		</form>
 		
 	</div>
 
