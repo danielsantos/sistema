@@ -32,7 +32,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="obj : ${list}">
-					<td th:text="${obj.produto.nome}"></td>
+					<td><span th:text="${obj.codigo}"></span> - <span th:text="${obj.nome}"></span></td>
 					<td align="center" th:text="${obj.dataFormatada}"></td>
 					<td align="center" th:text="${obj.custoUnitario}"></td>
 					<td align="center" th:text="${obj.valorVendaUnitario}"></td>

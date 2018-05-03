@@ -79,7 +79,7 @@ public class RelatorioController {
 	public ModelAndView saidaGerar(@ModelAttribute("dto") RelatorioDTO dto){
 		ModelAndView mv = new ModelAndView("relatorio/saidarel");
 		
-		SimpleDateFormat sdfBD = new SimpleDateFormat("dd/MM/yyyy");
+		//SimpleDateFormat sdfBD = new SimpleDateFormat("dd/MM/yyyy");
 		List<Entrada> list = new ArrayList<Entrada>();
 		
 		try {
@@ -117,7 +117,7 @@ public class RelatorioController {
 	@RequestMapping("/estoque/gerar")
 	public ModelAndView estoqueGerar(){
 		ModelAndView mv = new ModelAndView("relatorio/estoquerel");
-		List<Produto> list = produtoServiceImpl.findAll();
+		List<Produto> list = produtoServiceImpl.findAllActive();
 		
 		BigDecimal custoUnitarioTotal = new BigDecimal(0);
 		BigDecimal valorVendaUnitarioTotal = new BigDecimal(0);

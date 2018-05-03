@@ -21,7 +21,6 @@
 			      span="6" style="background:#ddd;" />
 			<thead>
 				<tr>
-					<!-- <th>Código</th> -->
 					<th scope="col">Produto</th>
 					<th scope="col">Custo Unit</th>
 					<th width="12%" scope="col">Val. Venda Unit</th>
@@ -32,8 +31,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="obj : ${list}">
-					<!-- <td align="center" style="width: 5%;" th:text="${obj.codigo}"></td> -->
-					<td th:text="${obj.nome}"></td>
+					<td><span th:text="${obj.codigo}"></span> - <span th:text="${obj.nome}"></span></td>
 					<td align="center" th:text="${obj.custoUnitario}"></td>
 					<td align="center" th:text="${obj.valorVendaUnitario}"></td>
 					<td align="center" th:text="${obj.quantidadeTotal}"></td>

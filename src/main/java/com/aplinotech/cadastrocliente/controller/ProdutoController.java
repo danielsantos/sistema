@@ -149,7 +149,6 @@ public class ProdutoController {
 		return "produto/visualizar";
 	}	
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/baixa", method = RequestMethod.GET)
 	public String baixa(ModelMap modelMap, HttpSession session) {
 		
@@ -162,10 +161,13 @@ public class ProdutoController {
 			
 		} else {
 			
-			list = (List<Produto>) session.getAttribute("produtosBaixa");
+			baixa = (Baixa) session.getAttribute("baixa");
 			BigDecimal total = BigDecimal.ZERO;
-			for (Produto p : list) {
-				total = p.getValorTotal().add(total);
+
+			if ( baixa.getProdutos() != null && !baixa.getProdutos().isEmpty() ) {
+				for (Produto p : list) {
+					total = p.getValorTotal().add(total);
+				}
 			}
 			
 			baixa.setValorTotal(total);
