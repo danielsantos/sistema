@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aplinotech.cadastrocliente.model.Entrada;
+import com.aplinotech.cadastrocliente.model.ItemBaixa;
 import com.aplinotech.cadastrocliente.model.Produto;
 import com.aplinotech.cadastrocliente.model.dto.RelatorioDTO;
+import com.aplinotech.cadastrocliente.service.impl.BaixaServiceImpl;
 import com.aplinotech.cadastrocliente.service.impl.EntradaServiceImpl;
 import com.aplinotech.cadastrocliente.service.impl.ProdutoServiceImpl;
 
@@ -24,6 +26,9 @@ public class RelatorioController {
 	
 	@Autowired
 	private EntradaServiceImpl entradaServiceImpl;
+	
+	@Autowired
+	private BaixaServiceImpl baixaServiceImpl;
 	
 	@Autowired
 	private ProdutoServiceImpl produtoServiceImpl;
@@ -77,31 +82,29 @@ public class RelatorioController {
 	
 	@RequestMapping("/saida/gerar")
 	public ModelAndView saidaGerar(@ModelAttribute("dto") RelatorioDTO dto){
+		
 		ModelAndView mv = new ModelAndView("relatorio/saidarel");
 		
-		//SimpleDateFormat sdfBD = new SimpleDateFormat("dd/MM/yyyy");
-		List<Entrada> list = new ArrayList<Entrada>();
+		SimpleDateFormat sdfBD = new SimpleDateFormat("dd/MM/yyyy");
+		List<ItemBaixa> list = new ArrayList<ItemBaixa>();
 		
 		try {
-			//list = entradaServiceImpl.findByDates(sdfBD.parse(dto.getDataInicio()), sdfBD.parse(dto.getDataFim()));
+			list = baixaServiceImpl.findByDates(sdfBD.parse(dto.getDataInicio()), sdfBD.parse(dto.getDataFim()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
-		BigDecimal custoUnitarioTotal = new BigDecimal(0);
-		BigDecimal valorVendaUnitarioTotal = new BigDecimal(0);
+		BigDecimal valorUnitarioTotal = new BigDecimal(0);
 		
-		for (Entrada e : list) {
-			e.setDataFormatada(sdf.format(e.getData()));
-			custoUnitarioTotal = e.getCustoUnitarioTotal().add(custoUnitarioTotal);
-			valorVendaUnitarioTotal = e.getValorVendaUnitarioTotal().add(valorVendaUnitarioTotal);
+		for (ItemBaixa e : list) {
+			e.setDataFormatada(sdf.format(e.getBaixa().getData()));
+			valorUnitarioTotal = e.getValorUnitarioTotal().add(valorUnitarioTotal);
 		}
 		
 		mv.addObject("list", list);
-		mv.addObject("custoUnitarioTotal", custoUnitarioTotal);
-		mv.addObject("valorVendaUnitarioTotal", valorVendaUnitarioTotal);
+		mv.addObject("valorUnitarioTotal", valorUnitarioTotal);
 		mv.addObject("data", new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()));
 		
 		return mv;

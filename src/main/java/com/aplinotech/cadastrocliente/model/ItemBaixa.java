@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class ItemBaixa {
@@ -28,6 +29,12 @@ public class ItemBaixa {
 	
 	@Column
 	private Integer quantidade;
+	
+	@Transient
+	private String dataFormatada;
+	
+	@Transient
+	private BigDecimal valorUnitarioTotal = BigDecimal.ZERO;
 
 
 	public Long getId() {
@@ -68,6 +75,18 @@ public class ItemBaixa {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public String getDataFormatada() {
+		return dataFormatada;
+	}
+
+	public void setDataFormatada(String dataFormatada) {
+		this.dataFormatada = dataFormatada;
+	}
+	
+	public BigDecimal getValorUnitarioTotal() {
+		return valorUnitario.multiply(new BigDecimal(quantidade));
 	}
 	
 }

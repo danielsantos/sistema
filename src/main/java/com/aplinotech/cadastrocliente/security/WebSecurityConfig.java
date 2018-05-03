@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.anyRequest()
 			.authenticated()
-			.and().formLogin().loginPage("/login").defaultSuccessUrl("/expired", true)
+			.and().formLogin().loginPage("/login").defaultSuccessUrl("/expired")
 			.permitAll()
 			.and().logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
