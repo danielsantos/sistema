@@ -6,6 +6,38 @@
 	
 <head>
 	<title>SysEstoque</title>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+		var mask = {
+		 money: function() {
+		 	var el = this
+		 	,exec = function(v) {
+		 	v = v.replace(/\D/g,"");
+		 	v = new String(Number(v));
+		 	var len = v.length;
+		 	if (1== len)
+		 	v = v.replace(/(\d)/,"0.0$1");
+		 	else if (2 == len)
+		 	v = v.replace(/(\d)/,"0.$1");
+		 	else if (len > 2) {
+		 	v = v.replace(/(\d{2})$/,'.$1');
+		 	}
+		 	return v;
+		 	};
+		
+		 	setTimeout(function(){
+		 	el.value = exec(el.value);
+		 	},1);
+		 }
+		
+		}
+		
+		$(function(){
+			$('#valorVendaUnitario').bind('keypress',mask.money)
+		});
+	</script>
 </head>
 
 <body>
@@ -70,7 +102,7 @@
 						<label for="input-produto-preco" style="margin-left: 74px;">Valor de Venda Unitario:</label>
 						<div class="form-inline">
 							<input th:field="*{qtdParaBaixa}" type="number" class="form-control  aw-form-control-inline-sm" />
-							<input th:field="*{valorVendaUnitario}" type="text" class="form-control  aw-form-control-inline-sm" style="margin-left: 10px;" />
+							<input th:field="*{valorVendaUnitario}" id="valorVendaUnitario" type="text" class="form-control  aw-form-control-inline-sm" style="margin-left: 10px;" />
 							<button class="btn  btn-primary" type="submit" style="margin-left: 10px">Adicionar</button>	
 						</div>
 					</div>
