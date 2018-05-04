@@ -140,6 +140,7 @@ public class ProdutoController {
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(ModelMap modelMap) {
 		modelMap.addAttribute("produtos", produtoServiceImpl.findAllActive());
+		modelMap.addAttribute("dto", new PesquisarProdutoDTO());
 		return "produto/listar";
 	}
 	
@@ -181,6 +182,27 @@ public class ProdutoController {
 		modelMap.addAttribute("produto", new Produto());
 		modelMap.addAttribute("baixa", baixa);
 		return "produto/baixa";
+	}
+	
+	@RequestMapping(value = "/consultar", method = RequestMethod.POST)
+	public String consultaProduto(@ModelAttribute("dto") PesquisarProdutoDTO dto, ModelMap modelMap, HttpSession session) {
+		
+		if ( !"".equals(dto.getNome()) ) {
+			modelMap.addAttribute("produtos", produtoServiceImpl.findByNome(dto. getNome()));
+		} else if ( !"".equals(dto.getCodigoProduto()) ) {
+			List<Produto> produtos = new ArrayList<Produto>();
+			Produto produto = produtoServiceImpl.findByCodigo(dto.getCodigoProduto());
+			
+			if (produto != null)
+				produtos.add(produto);
+			
+			modelMap.addAttribute("produtos", produtos);
+		} else { 
+			modelMap.addAttribute("produtos", produtoServiceImpl.findAllActive());
+		}
+			
+	    modelMap.addAttribute("dto", new PesquisarProdutoDTO());		
+		return "produto/listar";
 	}
 	
 	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)

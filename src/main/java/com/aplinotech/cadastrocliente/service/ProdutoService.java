@@ -17,5 +17,9 @@ public interface ProdutoService {
     List<Produto> findAll();
     
     List<Produto> findAllActive();
+    
+    List<Produto> findByNome(String nome);
+    
+    Produto findByCodigo(String codigo);
  
 }

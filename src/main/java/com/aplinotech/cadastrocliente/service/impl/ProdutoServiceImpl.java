@@ -48,5 +48,15 @@ public class ProdutoServiceImpl implements ProdutoService {
 	public List<Produto> findAllActive() {
 		return produtoRepository.findAllActive();
 	}
+	
+	@Override
+	public List<Produto> findByNome(String nome) {
+		return produtoRepository.findByNome(nome);
+	}
+	
+	@Override
+	public Produto findByCodigo(String codigo) {
+		return produtoRepository.findByCodigo(codigo);
+	}
 
 }
