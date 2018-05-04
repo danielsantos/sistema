@@ -99,13 +99,21 @@ public class ProdutoController {
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public ModelAndView salvar(@ModelAttribute(value = "produto") Produto produto, Errors errors, ModelMap modelMap){
 		ModelAndView mv = new ModelAndView("produto/novo");
+		
+		Produto prod = produtoServiceImpl.findByCodigo(produto.getCodigo());
+		if (prod != null) {
+			modelMap.addAttribute("produto", produto);
+			modelMap.addAttribute("msgError", "O Código '" + produto.getCodigo() + "' já está cadastrado para outro Produto.");
+			return mv;
+		}
+		
 		if(errors.hasErrors()){
 			modelMap.addAttribute("produto", produto);
 			return mv;
 		} else {
 			produto.setStatus("A"); // TODO criar um enum
 			produtoServiceImpl.saveOrUpdate(produto);
-			mv.addObject("mensagem", "Salvo com sucesso!");
+			mv.addObject("mensagem", "Produto cadastrado com sucesso!");
 			modelMap.addAttribute("produto", new Produto());
 		}
 		return mv;

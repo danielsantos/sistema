@@ -69,6 +69,11 @@
 	    			<span th:text="${error.message}"></span>
 	    		</div>
     		</div>
+    		
+    		<div class="alert alert-danger" th:if="${msgError != null}">
+	    		<span th:text="${msgError}"></span>
+    		</div>
+    		
 
 			<div class="row">
 				<div class="col-sm-6">
