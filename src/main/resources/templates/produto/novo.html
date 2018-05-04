@@ -6,6 +6,38 @@
 	
 <head>
 	<title>SysEstoque</title>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		var mask = {
+		 money: function() {
+		 	var el = this
+		 	,exec = function(v) {
+		 	v = v.replace(/\D/g,"");
+		 	v = new String(Number(v));
+		 	var len = v.length;
+		 	if (1== len)
+		 	v = v.replace(/(\d)/,"0.0$1");
+		 	else if (2 == len)
+		 	v = v.replace(/(\d)/,"0.$1");
+		 	else if (len > 2) {
+		 	v = v.replace(/(\d{2})$/,'.$1');
+		 	}
+		 	return v;
+		 	};
+		
+		 	setTimeout(function(){
+		 	el.value = exec(el.value);
+		 	},1);
+		 }
+		
+		}
+		
+		$(function(){
+			$('#custoUnitario').bind('keypress',mask.money)
+			$('#valorVendaUnitario').bind('keypress',mask.money)
+		});
+	</script>
 </head>
 
 <body>
@@ -79,7 +111,7 @@
 				<div class="col-sm-6">
 					<div class="form-group" th:classappend="${#fields.hasErrors('custoUnitario')} ? has-error">
 						<label for="name">Custo Unitário</label>
-						<input id="name" th:field="*{custoUnitario}" type="text" 
+						<input id="custoUnitario" th:field="*{custoUnitario}" type="text" 
 						       class="form-control" placeholder="Custo Unitário" style="width: 20%"/>
 					</div>
 				</div>
@@ -89,7 +121,7 @@
 				<div class="col-sm-6">
 					<div class="form-group" th:classappend="${#fields.hasErrors('valorVendaUnitario')} ? has-error">
 						<label for="name">Valor de Venda Unitário</label>
-						<input id="name" th:field="*{valorVendaUnitario}" type="text" 
+						<input id="valorVendaUnitario" th:field="*{valorVendaUnitario}" type="text" 
 						       class="form-control" placeholder="Valor de Venda Unitário" style="width: 20%"/>
 					</div>
 				</div>
