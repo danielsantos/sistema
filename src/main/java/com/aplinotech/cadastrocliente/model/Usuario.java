@@ -17,14 +17,11 @@ import javax.persistence.Transient;
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private Long id;
 
 	@Column(length = 100)
 	private String nome;
-	
-	@Column
-	private Date dataNascimento;
 	
 	@Column
 	private String username;
@@ -37,9 +34,6 @@ public class Usuario {
 
 	@Column
 	private String password;
-
-	@Column(nullable = true, length = 1)
-	private String status;
 
 	@Column
 	private Date dataCadastro;
@@ -115,28 +109,12 @@ public class Usuario {
 		this.username = username;
 	}
 
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
 	public String getConfirmeEmail() {
 		return confirmeEmail;
 	}
 
 	public void setConfirmeEmail(String confirmeEmail) {
 		this.confirmeEmail = confirmeEmail;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 }

@@ -11,14 +11,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+	
 //	private static final String USERNAME = "a";
 //	private static final String PASSWORD = "a";
 //	private static final String ROLE 	 = "ADMIN";
-	
-	@Autowired
-	private UserDetailsService userDetailsService;
-	
+//	
 //	@Override
 //	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 //		auth.inMemoryAuthentication()
@@ -26,6 +23,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //			.password(PASSWORD)
 //			.roles(ROLE);
 //	}
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	@Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -35,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+			.antMatchers("/instala").permitAll()
 			.anyRequest()
 			.authenticated()
 			.and().formLogin().loginPage("/login").defaultSuccessUrl("/expired")
@@ -42,10 +48,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and().logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
-	
-	@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
 	
 }
