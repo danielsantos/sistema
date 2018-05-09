@@ -1,3 +1,4 @@
+/*
 package com.aplinotech.cadastrocliente.controller;
 
 import java.util.Date;
@@ -104,3 +105,4 @@ public class LoginController {
 	}
 	
 }
+*/
