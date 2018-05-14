@@ -57,7 +57,7 @@
 
 	<div class="container-fluid">
 	
-		<form th:action="@{/produto/entrada/pesquisar}" th:object="${dto}" class="form-vertical  js-form-loading" method="POST">
+		<form th:action="@{/estoque/entrada/pesquisar}" th:object="${dto}" class="form-vertical  js-form-loading" method="POST">
 	
     		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
 	    		<span th:text="${mensagem}"></span>
@@ -80,7 +80,7 @@
 			</div>
 		</form>
 		
-		<form th:action="@{/produto/entrada/salvar}" th:object="${produto}" class="form-vertical js-form-loading" method="POST">
+		<form th:action="@{/estoque/entrada/salvar}" th:object="${produto}" class="form-vertical js-form-loading" method="POST">
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">

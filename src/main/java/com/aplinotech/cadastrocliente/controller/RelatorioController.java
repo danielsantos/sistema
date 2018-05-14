@@ -19,6 +19,7 @@ import com.aplinotech.cadastrocliente.model.dto.RelatorioDTO;
 import com.aplinotech.cadastrocliente.service.impl.BaixaServiceImpl;
 import com.aplinotech.cadastrocliente.service.impl.EntradaServiceImpl;
 import com.aplinotech.cadastrocliente.service.impl.ProdutoServiceImpl;
+import com.aplinotech.cadastrocliente.service.impl.SetupServiceImpl;
 
 @Controller
 @RequestMapping("/relatorio")
@@ -32,22 +33,38 @@ public class RelatorioController {
 	
 	@Autowired
 	private ProdutoServiceImpl produtoServiceImpl;
+	
+	@Autowired
+	private SetupServiceImpl setupServiceImpl;
+	
 
 	@RequestMapping("/entrada")
-	public ModelAndView entrada(){
+	public ModelAndView entrada() {
+		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return new ModelAndView("login/expirado");
+		
 		ModelAndView mv = new ModelAndView("relatorio/entrada");
 		mv.addObject("dto", new RelatorioDTO());
 		return mv;
 	}
 	
 	@RequestMapping("/estoque")
-	public ModelAndView estoque(){
+	public ModelAndView estoque() {
+		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return new ModelAndView("login/expirado");
+		
 		ModelAndView mv = new ModelAndView("relatorio/estoque");
 		return mv;
 	}
 	
 	@RequestMapping("/saida")
-	public ModelAndView saida(){
+	public ModelAndView saida() {
+		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return new ModelAndView("login/expirado");
+		
 		ModelAndView mv = new ModelAndView("relatorio/saida");
 		mv.addObject("dto", new RelatorioDTO());
 		return mv;
@@ -56,6 +73,9 @@ public class RelatorioController {
 	
 	@RequestMapping("/entrada/gerar")
 	public ModelAndView entradaGerar(@ModelAttribute("dto") RelatorioDTO dto) {
+		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return new ModelAndView("login/expirado");
 		
 		ModelAndView mv = new ModelAndView("relatorio/entradarel");
 		
@@ -88,7 +108,10 @@ public class RelatorioController {
 	}
 	
 	@RequestMapping("/saida/gerar")
-	public ModelAndView saidaGerar(@ModelAttribute("dto") RelatorioDTO dto){
+	public ModelAndView saidaGerar(@ModelAttribute("dto") RelatorioDTO dto) {
+		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return new ModelAndView("login/expirado");
 		
 		ModelAndView mv = new ModelAndView("relatorio/saidarel");
 		
@@ -118,7 +141,11 @@ public class RelatorioController {
 	}
 	
 	@RequestMapping("/estoque/gerar")
-	public ModelAndView estoqueGerar(){
+	public ModelAndView estoqueGerar() {
+		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return new ModelAndView("login/expirado");
+		
 		ModelAndView mv = new ModelAndView("relatorio/estoquerel");
 		List<Produto> list = produtoServiceImpl.findAllActive();
 		
@@ -136,6 +163,5 @@ public class RelatorioController {
 		mv.addObject("data", new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()));
 		return mv;
 	}
-
 	
 }

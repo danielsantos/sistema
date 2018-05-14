@@ -7,5 +7,7 @@ public interface SetupService {
     void saveOrUpdate(Setup configuracaoSistema);
  
     Setup find();
+    
+    boolean sistemaExpirou();
  
 }

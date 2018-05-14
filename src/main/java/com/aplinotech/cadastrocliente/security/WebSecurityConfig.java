@@ -1,4 +1,3 @@
-/*
 package com.aplinotech.cadastrocliente.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/instalar","/ativar").permitAll()
 			.anyRequest()
 			.authenticated()
-			.and().formLogin().loginPage("/login").defaultSuccessUrl("/expired")
+			.and().formLogin().loginPage("/login").defaultSuccessUrl("/")
 			.permitAll()
 			.and().logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
 }
-*/

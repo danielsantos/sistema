@@ -1,5 +1,6 @@
 package com.aplinotech.cadastrocliente.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import com.aplinotech.cadastrocliente.service.SetupService;
 @Service
 @Transactional
 public class SetupServiceImpl implements SetupService {
+	
+	private static final String CODE_ACTIVE = "890531";
 	
 	@Autowired
 	private SetupRepository configuracaoSistemaRepository;
@@ -30,6 +33,29 @@ public class SetupServiceImpl implements SetupService {
 		} else {
 			return list.get(0);
 		}
+	}
+	
+	@Override
+	public boolean sistemaExpirou() {
+		
+		Setup setup = find();
+		
+		if ( setup.getDataExpiracao().before(new Date()) ) {
+			
+			if ( setup.getCodigoAtivacao() == null ) {
+				
+				return true;
+				
+			} else if ( !setup.getCodigoAtivacao().equals(CODE_ACTIVE) ) {
+				
+				return true;
+				
+			}
+			
+		} 
+		
+		return false;
+		
 	}
 
 }

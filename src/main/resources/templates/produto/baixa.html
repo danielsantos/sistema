@@ -57,7 +57,7 @@
 	<div class="container-fluid">
 		
 		<!-- PESQUISA -->
-		<form th:action="@{/produto/pesquisar}" th:object="${dto}" class="form-vertical  js-form-loading" method="POST">
+		<form th:action="@{/estoque/pesquisar}" th:object="${dto}" class="form-vertical  js-form-loading" method="POST">
 		
     		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
 	    		<span th:text="${mensagem}"></span>
@@ -80,7 +80,7 @@
 			</div>
 		</form>
 			
-		<form th:action="@{/produto/baixa/add}" th:object="${produto}" class="form-vertical js-form-loading" method="POST">
+		<form th:action="@{/estoque/baixa/add}" th:object="${produto}" class="form-vertical js-form-loading" method="POST">
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
@@ -121,7 +121,7 @@
 						<div class="form-inline">
 							<input name="valorTotal" type="text" class="form-control  aw-form-control-inline-sm" 
 							       readonly="readonly" th:field="*{valorTotal}" />
-							<a th:href="@{/produto/registrarBaixa}" class="btn  btn-primary" type="submit" style="margin-left: 10px">Registrar</a>
+							<a th:href="@{/estoque/registrarBaixa}" class="btn  btn-primary" type="submit" style="margin-left: 10px">Registrar</a>
 						</div>
 						
 					</div>
@@ -158,7 +158,7 @@
 						<td th:text="${produto.valorTotal}"></td>
 						<td class="table-pesq-produto-col-acoes">
 							<div class="btn-group">
-								<a th:href="@{/produto/removeProdutoBaixa/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
+								<a th:href="@{/estoque/removeProdutoBaixa/{id}(id=${produto.id})}" class="btn  btn-default btn-xs">
 									<i class="fa  fa-fw  fa-close"></i>
 								</a>
 							</div>
