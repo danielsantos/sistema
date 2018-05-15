@@ -276,13 +276,52 @@ public class EstoqueController {
 		
 	}
 	
+	@RequestMapping("/retorna/produto/{codigo}") 
+	public String retornaProdutoPesquisadoPorNome(@PathVariable(value = "codigo") String codigo, ModelMap modelMap, HttpSession session) {
+		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return "login/expirado";
+		
+		Baixa baixa = new Baixa();
+		
+		if ( session.getAttribute("baixa") == null ) {
+
+			session.setAttribute("baixa", new Baixa());
+			
+		} else {
+			
+			BigDecimal total = BigDecimal.ZERO;
+			baixa = (Baixa) session.getAttribute("baixa");
+			
+			if (baixa.getProdutos() != null && !baixa.getProdutos().isEmpty()) {
+				for (Produto p : baixa.getProdutos()) {
+					total = p.getValorTotal().add(total);
+				}
+			}
+			
+			baixa.setValorTotal(total);
+			session.setAttribute("baixa", baixa);
+			
+		}
+		
+		Produto produto = produtoServiceImpl.findByCodigoAndActive(codigo);
+		
+		modelMap.addAttribute("produtosBaixa", baixa.getProdutos());
+		modelMap.addAttribute("dto", new PesquisarProdutoDTO());
+		modelMap.addAttribute("produto", produto);
+		modelMap.addAttribute("baixa", baixa);
+		
+		return "produto/baixa";
+		
+	}
+	
 	@RequestMapping(value = "/baixa", method = RequestMethod.GET)
 	public String baixa(ModelMap modelMap, HttpSession session) {
 		
 		if (setupServiceImpl.sistemaExpirou()) 
 			return "login/expirado";
 		
-		List<Produto> list = new ArrayList<Produto>();
+		//List<Produto> list = new ArrayList<Produto>();
 		Baixa baixa = new Baixa();
 		
 		if ( session.getAttribute("baixa") == null ) {
@@ -295,7 +334,7 @@ public class EstoqueController {
 			BigDecimal total = BigDecimal.ZERO;
 
 			if ( baixa.getProdutos() != null && !baixa.getProdutos().isEmpty() ) {
-				for (Produto p : list) {
+				for (Produto p : baixa.getProdutos()) {
 					total = p.getValorTotal().add(total);
 				}
 			}
@@ -306,11 +345,46 @@ public class EstoqueController {
 		}
 		
 		modelMap.addAttribute("produtos", produtoServiceImpl.findAll());
-		modelMap.addAttribute("produtosBaixa", list);
+		modelMap.addAttribute("produtosBaixa", baixa.getProdutos());
 		modelMap.addAttribute("dto", new PesquisarProdutoDTO());
 		modelMap.addAttribute("produto", new Produto());
 		modelMap.addAttribute("baixa", baixa);
 		return "produto/baixa";
-	}	
+		
+	}
+	
+	@RequestMapping(value = "/consultar/produto/nome/form")
+	public ModelAndView consultaProdutoForm() {
+		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return new ModelAndView("login/expirado");
+		
+		ModelAndView mv = new ModelAndView("estoque/listar");
+		mv.addObject("produtos", new ArrayList<Produto>());
+	    mv.addObject("dto", new PesquisarProdutoDTO());		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/consultar/produto/nome", method = RequestMethod.POST)
+	public String consultaProduto(@ModelAttribute("dto") PesquisarProdutoDTO dto, ModelMap modelMap, HttpSession session) {
+		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return "login/expirado";
+		
+		if ( !"".equals(dto.getNome()) ) {
+			
+			modelMap.addAttribute("produtos", produtoServiceImpl.findByNome(dto. getNome()));
+			
+		} else { 
+
+			modelMap.addAttribute("produtos", produtoServiceImpl.findAllActive());
+			
+		}
+			
+	    modelMap.addAttribute("dto", new PesquisarProdutoDTO());		
+		return "estoque/listar";
+		
+	}
 
 }

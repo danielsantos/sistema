@@ -145,8 +145,11 @@ public class ProdutoController {
 			return "login/expirado";
 		
 		if ( !"".equals(dto.getNome()) ) {
+			
 			modelMap.addAttribute("produtos", produtoServiceImpl.findByNome(dto. getNome()));
+			
 		} else if ( !"".equals(dto.getCodigoProduto()) ) {
+			
 			List<Produto> produtos = new ArrayList<Produto>();
 			Produto produto = produtoServiceImpl.findByCodigo(dto.getCodigoProduto());
 			
@@ -154,6 +157,7 @@ public class ProdutoController {
 				produtos.add(produto);
 			
 			modelMap.addAttribute("produtos", produtos);
+			
 		} else { 
 			modelMap.addAttribute("produtos", produtoServiceImpl.findAllActive());
 		}
