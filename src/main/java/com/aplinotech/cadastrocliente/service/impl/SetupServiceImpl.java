@@ -38,6 +38,9 @@ public class SetupServiceImpl implements SetupService {
 	@Override
 	public boolean sistemaExpirou() {
 		
+		return false;
+		
+		/*
 		Setup setup = find();
 		
 		if ( setup.getDataExpiracao().before(new Date()) ) {
@@ -55,6 +58,7 @@ public class SetupServiceImpl implements SetupService {
 		} 
 		
 		return false;
+		*/
 		
 	}
 
