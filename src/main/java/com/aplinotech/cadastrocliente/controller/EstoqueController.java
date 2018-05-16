@@ -180,6 +180,9 @@ public class EstoqueController {
 	@RequestMapping(value = "/baixa/add", method = RequestMethod.POST)
 	public String baixaAddProd(@ModelAttribute("produto") Produto produto, ModelMap modelMap, HttpSession session) {
 		
+		if (setupServiceImpl.sistemaExpirou()) 
+			return "login/expirado";
+		
 		List<Produto> list = new ArrayList<Produto>();
 		Baixa baixa = new Baixa();
 		
