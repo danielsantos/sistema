@@ -52,6 +52,12 @@ public class ProdutoController {
 		
 		ModelAndView mv = new ModelAndView("produto/novo");
 		
+		if (produto.getCodigo() == null || "".equals(produto.getCodigo())) {
+			modelMap.addAttribute("produto", produto);
+			modelMap.addAttribute("msgError", "O campo Código é obrigatório.");
+			return mv;
+		}
+		
 		Produto prod = produtoServiceImpl.findByCodigo(produto.getCodigo());
 		if (prod != null) {
 			modelMap.addAttribute("produto", produto);
