@@ -1,8 +1,11 @@
 package com.aplinotech.cadastrocliente.service.impl;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import com.aplinotech.cadastrocliente.util.instalacao.InstalacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,10 @@ public class SetupServiceImpl implements SetupService {
 	
 	@Autowired
 	private SetupRepository configuracaoSistemaRepository;
+	@Autowired
+	private InstalacaoRepository instalacaoRepository;
+
+
 
 	@Override
 	public void saveOrUpdate(Setup configuracaoSistema) {
@@ -38,28 +45,34 @@ public class SetupServiceImpl implements SetupService {
 	@Override
 	public boolean sistemaExpirou() {
 		
-		return false;
-		
-		/*
 		Setup setup = find();
-		
-		if ( setup.getDataExpiracao().before(new Date()) ) {
-			
-			if ( setup.getCodigoAtivacao() == null ) {
-				
-				return true;
-				
-			} else if ( !setup.getCodigoAtivacao().equals(CODE_ACTIVE) ) {
-				
-				return true;
-				
+
+		if ( setup == null ) {
+			instalacaoRepository.insereSetup(getDataLimiteDeUsoGratis());
+			return false;
+		} else {
+
+			if (setup.getDataExpiracao().before(new Date())) {
+
+				if (setup.getCodigoAtivacao() == null) {
+					return true;
+				} else if (!setup.getCodigoAtivacao().equals(CODE_ACTIVE)) {
+					return true;
+				}
+
 			}
-			
-		} 
-		
-		return false;
-		*/
-		
+
+			return false;
+
+		}
+
+	}
+
+	@Override
+	public Date getDataLimiteDeUsoGratis() {
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DATE, 15);
+		return cal.getTime();
 	}
 
 }
